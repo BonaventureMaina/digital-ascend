@@ -3,6 +3,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { posts } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
+import { generateSlug } from '$lib/utils/slug';
 
 export function load({ params, cookies }) {
   const token = cookies.get('admin_token');
@@ -35,17 +36,12 @@ export const actions = {
       return { success: false, error: 'Title and content are required.' };
     }
 
-    // Generate slug from title
-    let slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    let slug = generateSlug(title);
 
     if (!date) {
       date = new Date().toISOString().split('T')[0];
     }
 
-    // Ensure uniqueness, except for the current post
     const existing = db.select().from(posts).where(eq(posts.slug, slug)).get();
     if (existing && existing.id !== id) {
       slug = slug + '-' + Date.now().toString().slice(-4);
