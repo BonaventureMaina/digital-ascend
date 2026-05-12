@@ -1,5 +1,11 @@
 import { env } from '$env/dynamic/private';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
+
+export function load({ cookies }) {
+  const token = cookies.get('admin_token');
+  const authenticated = token === env.ADMIN_PASSWORD;
+  return { authenticated };
+}
 
 export const actions = {
   login: async ({ request, cookies }) => {
@@ -10,14 +16,18 @@ export const actions = {
       return fail(401, { error: 'Incorrect password.' });
     }
 
-    // Set a simple authentication cookie (prototype only)
     cookies.set('admin_token', env.ADMIN_PASSWORD, {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 60 * 60 * 24 // 1 day
+      maxAge: 60 * 60 * 24
     });
 
-    return { success: true };
+    throw redirect(303, '/admin');
+  },
+
+  logout: async ({ cookies }) => {
+    cookies.delete('admin_token', { path: '/' });
+    throw redirect(303, '/admin');
   }
 };

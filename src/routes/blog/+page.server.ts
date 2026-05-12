@@ -1,32 +1,27 @@
-import { marked } from 'marked';
-import matter from 'gray-matter';
-import { readFileSync, readdirSync } from 'fs';
-import { resolve } from 'path';
+import { db } from '$lib/server/db';
+import { posts } from '$lib/server/db/schema';
 import { format } from 'date-fns';
-
-interface Post {
-  slug: string;
-  title: string;
-  date: string;
-  description: string;
-}
+import { desc } from 'drizzle-orm';
 
 export function load() {
-  const blogDir = resolve('src/content/blog');
-  const files = readdirSync(blogDir).filter(f => f.endsWith('.md'));
+  const list = db.select().from(posts).orderBy(desc(posts.date)).all();
 
-  const posts: Post[] = files.map(file => {
-    const raw = readFileSync(resolve(blogDir, file), 'utf-8');
-    const { data } = matter(raw);
-    const slug = file.replace('.md', '');
-
-    return {
-      slug,
-      title: data.title,
-      date: format(data.date, 'MMMM d, yyyy'),
-      description: data.description,
-    };
-  });
-
-  return { posts };
+  return {
+    posts: list.map(p => {
+      let formattedDate = 'Unknown date';
+      try {
+        if (p.date) {
+          formattedDate = format(p.date, 'MMMM d, yyyy');
+        }
+      } catch {
+        // leave as 'Unknown date'
+      }
+      return {
+        slug: p.slug,
+        title: p.title,
+        date: formattedDate,
+        description: p.description,
+      };
+    })
+  };
 }

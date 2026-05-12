@@ -1,7 +1,7 @@
 <script lang="ts">
   let { form } = $props();
-  const success = form?.success ?? false;
-  const error = form?.error ?? '';
+  const success = () => form?.success ?? false;
+  const error = () => form?.error ?? '';
 </script>
 
 <div class="max-w-3xl mx-auto text-center">
@@ -12,14 +12,13 @@
     Original theatre for the stage and the screen.
   </p>
 
-  <!-- Email Signup -->
   <div class="bg-white border rounded-lg p-6 shadow-sm mb-10">
     <h2 class="text-2xl font-semibold mb-2">Be the First to Know</h2>
     <p class="text-gray-600 mb-4">
       <em>"The Last Row"</em> is in development. Sign up for updates, ticket releases, and streaming announcements.
     </p>
 
-    {#if success}
+    {#if success()}
       <p class="text-green-700 bg-green-50 border border-green-200 rounded p-3 text-sm">
         You're on the list! We'll be in touch when tickets go live.
       </p>
@@ -36,13 +35,12 @@
           Notify Me
         </button>
       </form>
-      {#if error}
-        <p class="text-red-600 text-sm mt-2">{error}</p>
+      {#if error()}
+        <p class="text-red-600 text-sm mt-2">{error()}</p>
       {/if}
     {/if}
   </div>
 
-  <!-- Secondary links -->
   <div class="flex flex-wrap gap-4 justify-center text-sm text-indigo-700">
     <a href="/shows" class="hover:underline">Shows</a>
     <span class="text-gray-300">|</span>

@@ -1,26 +1,21 @@
-import { marked } from 'marked';
-import matter from 'gray-matter';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-import { format } from 'date-fns';
+import { db } from '$lib/server/db';
+import { posts } from '$lib/server/db/schema';
+import { eq } from 'drizzle-orm';
 import { error } from '@sveltejs/kit';
+import { marked } from 'marked';
+import { format } from 'date-fns';
 
 export function load({ params }) {
-  const { slug } = params;
+  const post = db.select().from(posts).where(eq(posts.slug, params.slug)).get();
 
-  try {
-    const filePath = resolve(`src/content/blog/${slug}.md`);
-    const raw = readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-    const html = marked(content);
+  if (!post) throw error(404, 'Post not found');
 
-    return {
-      title: data.title,
-      date: format(data.date, 'MMMM d, yyyy'),
-      description: data.description,
-      html
-    };
-  } catch {
-    throw error(404, 'Post not found');
-  }
+  const html = marked(post.content);
+
+  return {
+    title: post.title,
+    date: format(post.date, 'MMMM d, yyyy'),
+    description: post.description,
+    html
+  };
 }
