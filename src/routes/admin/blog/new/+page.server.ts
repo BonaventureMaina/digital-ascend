@@ -16,7 +16,6 @@ export const actions = {
 
     const data = await request.formData();
     const title = (data.get('title') as string).trim();
-    let slug = (data.get('slug') as string).trim().toLowerCase().replace(/\s+/g, '-');
     const description = (data.get('description') as string).trim();
     const content = (data.get('content') as string).trim();
     let date = (data.get('date') as string).trim();
@@ -25,14 +24,18 @@ export const actions = {
       return { success: false, error: 'Title and content are required.' };
     }
 
-    if (!slug) {
-      slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    }
+    // Generate slug from title
+    let slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
 
+    // Default date
     if (!date) {
       date = new Date().toISOString().split('T')[0];
     }
 
+    // Ensure uniqueness
     const existing = db.select().from(posts).where(eq(posts.slug, slug)).get();
     if (existing) {
       slug = slug + '-' + Date.now().toString().slice(-4);
@@ -47,6 +50,6 @@ export const actions = {
       createdAt: new Date().toISOString()
     }).run();
 
-    throw redirect(302, '/admin/blog');
+    throw redirect(303, '/admin/blog');
   }
 };
