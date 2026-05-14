@@ -1,8 +1,9 @@
 ---
-title: Welcome to Digital Ascend Arts
-date: 2026-05-12
-description: The curtain rises on a new kind of theatre company.
+title: "Welcome to Digital Ascend Arts"
+date: "2026-05-12"
+description: "The curtain rises on a new kind of theatre company."
 ---
+
 
 ## We're here
 
@@ -18,3 +19,4 @@ Our debut one-act play, *The Last Row*, is in development. It asks what happens 
 - Recorded productions available to stream
 
 Check back soon. The house lights are dimming.
+

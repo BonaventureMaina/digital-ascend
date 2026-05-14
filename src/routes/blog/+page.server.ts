@@ -1,27 +1,36 @@
-import { db } from '$lib/server/db';
-import { posts } from '$lib/server/db/schema';
+import { readdirSync, readFileSync } from 'fs';
+import { resolve } from 'path';
+import matter from 'gray-matter';
 import { format } from 'date-fns';
-import { desc } from 'drizzle-orm';
+
+export const prerender = true;
 
 export function load() {
-  const list = db.select().from(posts).orderBy(desc(posts.date)).all();
+  const blogDir = resolve('src/content/blog');
+  const files = readdirSync(blogDir).filter(f => f.endsWith('.md'));
 
-  return {
-    posts: list.map(p => {
-      let formattedDate = 'Unknown date';
-      try {
-        if (p.date) {
-          formattedDate = format(p.date, 'MMMM d, yyyy');
-        }
-      } catch {
-        // leave as 'Unknown date'
+  const posts = files.map(file => {
+    const raw = readFileSync(resolve(blogDir, file), 'utf-8');
+    const { data } = matter(raw);
+    const slug = file.replace('.md', '');
+
+    let formattedDate = 'Unknown date';
+    try {
+      if (data.date) {
+        formattedDate = format(data.date, 'MMMM d, yyyy');
       }
-      return {
-        slug: p.slug,
-        title: p.title,
-        date: formattedDate,
-        description: p.description,
-      };
-    })
-  };
+    } catch { /* leave as unknown */ }
+
+    return {
+      slug,
+      title: data.title,
+      date: formattedDate,
+      description: data.description || '',
+    };
+  });
+
+  // Sort by date descending (assuming ISO date strings)
+  posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  return { posts };
 }

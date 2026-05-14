@@ -1,8 +1,9 @@
 ---
-title: Why We're Streaming Theatre
-date: 2026-05-13
-description: The case for putting original plays on screens.
+title: "Why We're Streaming Theatre"
+date: "2026-05-13"
+description: "The case for putting original plays on screens."
 ---
+
 
 ## The fourth wall is a screen now
 
@@ -23,3 +24,4 @@ That's not a threat to theatre. It's an invitation.
 - The audience still matters.
 
 We're not replacing the stage. We're building a second one.
+
