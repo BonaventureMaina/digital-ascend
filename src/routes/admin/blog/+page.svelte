@@ -5,53 +5,53 @@
   const postsList = () => data.posts;
 </script>
 
-<div class="max-w-3xl mx-auto">
-  <h1 class="text-2xl font-bold mb-4">Blog Posts ({postsList().length})</h1>
+<div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
+  <div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-2xl font-bold mb-4 text-white">Blog Posts ({postsList().length})</h1>
 
-  <a href="/admin/blog/new" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded text-sm mb-6 hover:bg-indigo-700 no-underline">
-    + New Post
-  </a>
+    <a href="/admin/blog/new" class="inline-block bg-amber-500 hover:bg-amber-400 text-gray-900 font-semibold px-4 py-2 rounded-lg text-sm mb-6 transition-colors no-underline">
+      + New Post
+    </a>
 
-  <table class="w-full border-collapse border border-gray-200 text-sm">
-    <thead>
-      <tr class="bg-gray-50">
-        <th class="border border-gray-200 p-2 text-left">Title</th>
-        <th class="border border-gray-200 p-2 text-left">Date</th>
-        <th class="border border-gray-200 p-2 text-left">Slug</th>
-        <th class="border border-gray-200 p-2 text-left">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each postsList() as post}
-        <tr>
-          <td class="border border-gray-200 p-2">{post.title}</td>
-          <td class="border border-gray-200 p-2">{post.date}</td>
-          <td class="border border-gray-200 p-2">{post.slug}</td>
-          <td class="border border-gray-200 p-2">
-            <a href="/admin/blog/{post.id}/edit" class="text-indigo-600 hover:text-indigo-800 mr-3">Edit</a>
-            <form method="POST" action="?/delete" style="display:inline"
-              use:enhance={({ event }) => {
-                if (!confirm('Delete this post?')) {
-                  event.preventDefault();
-                  return;
-                }
-                return async ({ update }) => {
-                  await update();
-                };
-              }}
-            >
-              <input type="hidden" name="id" value={post.id} />
-              <button type="submit" class="text-red-600 hover:text-red-800">
-                Delete
-              </button>
-            </form>
-          </td>
-        </tr>
-      {/each}
-    </tbody>
-  </table>
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr class="bg-white/10">
+            <th class="p-3 text-left text-gray-300 font-medium">Title</th>
+            <th class="p-3 text-left text-gray-300 font-medium">Date</th>
+            <th class="p-3 text-left text-gray-300 font-medium">Slug</th>
+            <th class="p-3 text-left text-gray-300 font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each postsList() as post}
+            <tr class="border-t border-white/5 hover:bg-white/5 transition-colors">
+              <td class="p-3 text-gray-200">{post.title}</td>
+              <td class="p-3 text-gray-400">{post.date}</td>
+              <td class="p-3 text-gray-500 text-xs">{post.slug}</td>
+              <td class="p-3">
+                <a href="/admin/blog/{post.id}/edit" class="text-amber-400 hover:text-amber-300 mr-3 transition-colors">Edit</a>
+                <form method="POST" action="?/delete" style="display:inline"
+                  use:enhance={({ event }) => {
+                    if (!confirm('Delete this post?')) {
+                      event.preventDefault();
+                      return;
+                    }
+                    return async ({ update }) => { await update(); };
+                  }}
+                >
+                  <input type="hidden" name="id" value={post.id} />
+                  <button type="submit" class="text-red-400 hover:text-red-300 transition-colors">Delete</button>
+                </form>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
 
-  <p class="mt-6 text-sm text-gray-500">
-    <a href="/admin" class="text-indigo-700 hover:underline">Admin home</a>
-  </p>
+    <p class="mt-6 text-sm text-gray-500">
+      <a href="/admin" class="text-amber-400 hover:text-amber-300 transition-colors">Admin home</a>
+    </p>
+  </div>
 </div>
