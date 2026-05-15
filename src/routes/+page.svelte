@@ -1,7 +1,30 @@
 <script lang="ts">
-  let { form } = $props();
-  const success = () => form?.success ?? false;
-  const error = () => form?.error ?? '';
+  let submitted = $state(false);
+  let error = $state('');
+
+  async function handleSubmit(event: Event) {
+    event.preventDefault();
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xzdolole', {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (response.ok) {
+        submitted = true;
+        error = '';
+      } else {
+        const data = await response.json();
+        error = data.error || 'Something went wrong. Please try again.';
+      }
+    } catch {
+      error = 'Network error. Please check your connection.';
+    }
+  }
 </script>
 
 <div class="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
@@ -29,19 +52,19 @@
       <p class="text-gray-400 text-sm mt-3">Scenes 1–4 — free to read and share.</p>
     </div>
 
-    <!-- Email Signup -->
+    <!-- Email Signup (Formspree) -->
     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 max-w-md mx-auto mb-10">
       <h2 class="text-lg font-semibold mb-3">Stay Updated</h2>
       <p class="text-sm text-gray-400 mb-4">
         Be the first to know about new scenes, ticket releases, and streaming announcements.
       </p>
 
-      {#if success()}
+      {#if submitted}
         <p class="text-green-400 bg-green-400/10 border border-green-400/30 rounded-lg p-3 text-sm">
-          You're on the list! We'll be in touch.
+          You're on the list! Thank you.
         </p>
       {:else}
-        <form method="POST" action="?/subscribe" class="flex flex-col sm:flex-row gap-3">
+        <form onsubmit={handleSubmit} class="flex flex-col sm:flex-row gap-3">
           <input
             type="email"
             name="email"
@@ -53,8 +76,8 @@
             Notify Me
           </button>
         </form>
-        {#if error()}
-          <p class="text-red-400 text-sm mt-2">{error()}</p>
+        {#if error}
+          <p class="text-red-400 text-sm mt-2">{error}</p>
         {/if}
       {/if}
     </div>
