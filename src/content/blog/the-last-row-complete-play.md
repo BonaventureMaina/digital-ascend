@@ -1,6 +1,6 @@
 ---
 title: "The Last Row — Complete Play"
-date: "2026-05-15"
+date: "2026-05-17"
 description: "All 10 scenes of our debut one-act play are now online. Read from the beginning, or jump to any scene."
 ---
 

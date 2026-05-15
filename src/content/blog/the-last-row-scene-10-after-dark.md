@@ -1,6 +1,6 @@
 ---
 title: "The Last Row — Scene 10: After‑Dark"
-date: "2026-05-15"
+date: "2026-05-16"
 description: "The performance is over. The audience is gone. Four people sit on the edge of the stage, sharing water and silence. The critic is no longer a critic."
 ---
 
