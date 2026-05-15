@@ -5,30 +5,35 @@
 </script>
 
 <div class="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
-  <!-- Spotlight effect -->
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-amber-400/20 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
   <div class="relative z-10 max-w-3xl mx-auto text-center px-4 py-16">
-    <!-- Tagline -->
     <p class="text-amber-400 text-sm font-medium uppercase tracking-[0.2em] mb-4">A New Theatre Company</p>
 
-    <!-- Title -->
     <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
       Digital Ascend
       <span class="block text-2xl md:text-3xl lg:text-4xl font-light mt-2 text-gray-300">Arts Production</span>
     </h1>
 
-    <!-- Subtitle -->
     <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8">
       Original one‑act plays for the stage and the screen.<br />
       Debut production: <em class="text-amber-400 not-italic">The Last Row</em> — coming soon.
     </p>
 
+    <!-- PDF Download -->
+    <div class="mb-10">
+      <a href="/the-last-row-preview.pdf" download class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-gray-900 font-semibold px-8 py-3 rounded-lg transition-colors text-lg">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Download Preview Script (PDF)
+      </a>
+      <p class="text-gray-400 text-sm mt-3">Scenes 1–4 — free to read and share.</p>
+    </div>
+
     <!-- Email Signup -->
     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 max-w-md mx-auto mb-10">
-      <h2 class="text-lg font-semibold mb-3">Be the First to Know</h2>
+      <h2 class="text-lg font-semibold mb-3">Stay Updated</h2>
       <p class="text-sm text-gray-400 mb-4">
-        Sign up for updates, ticket releases, and streaming announcements.
+        Be the first to know about new scenes, ticket releases, and streaming announcements.
       </p>
 
       {#if success()}
@@ -54,7 +59,6 @@
       {/if}
     </div>
 
-    <!-- Navigation links -->
     <div class="flex flex-wrap gap-6 justify-center text-sm text-gray-400">
       <a href="/shows" class="hover:text-amber-400 transition-colors">Shows</a>
       <a href="/blog" class="hover:text-amber-400 transition-colors">Blog</a>

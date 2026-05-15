@@ -11,13 +11,11 @@ export const actions = {
       return { success: false, error: 'Please enter a valid email address.' };
     }
 
-    // Check for duplicate
     const existing = db.select().from(subscribers).where(eq(subscribers.email, email)).get();
     if (existing) {
       return { success: false, error: 'This email is already subscribed.' };
     }
 
-    // Insert new subscriber
     db.insert(subscribers).values({
       email,
       subscribedAt: new Date().toISOString()

@@ -14,7 +14,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint .",
 		"export-blog": "node scripts/export-blog.js",
-		"prebuild": "npm run export-blog"
+		"prebuild": "npm run export-blog",
+		"generate-pdf": "node scripts/generate-preview-pdf.js"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
@@ -26,6 +27,7 @@
 		"@types/better-sqlite3": "^7.6.13",
 		"drizzle-kit": "^0.31.10",
 		"eslint": "^10.3.0",
+		"puppeteer": "^24.43.1",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
 		"tailwindcss": "^4.2.2",
