@@ -1,33 +1,38 @@
-import { env } from '$env/dynamic/private';
 import { fail, redirect } from '@sveltejs/kit';
+import { verifyLogin } from '$lib/server/auth';
 
 export function load({ cookies }) {
-  const token = cookies.get('admin_token');
-  const authenticated = token === env.ADMIN_PASSWORD;
+  const session = cookies.get('admin_session');
+  const authenticated = session === 'valid';
   return { authenticated };
 }
 
 export const actions = {
   login: async ({ request, cookies }) => {
     const data = await request.formData();
+    const username = data.get('username') as string;
     const password = data.get('password') as string;
 
-    if (password !== env.ADMIN_PASSWORD) {
-      return fail(401, { error: 'Incorrect password.' });
+    if (!username || !password) {
+      return fail(401, { error: 'Username and password are required.' });
     }
 
-    cookies.set('admin_token', env.ADMIN_PASSWORD, {
+    if (!verifyLogin(username, password)) {
+      return fail(401, { error: 'Invalid username or password.' });
+    }
+
+    cookies.set('admin_session', 'valid', {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
-      maxAge: 60 * 60 * 24
+      maxAge: 60 * 60 * 24,
     });
 
     throw redirect(303, '/admin');
   },
 
   logout: async ({ cookies }) => {
-    cookies.delete('admin_token', { path: '/' });
+    cookies.delete('admin_session', { path: '/' });
     throw redirect(303, '/admin');
-  }
+  },
 };

@@ -1,4 +1,3 @@
-import { env } from '$env/dynamic/private';
 import { redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { posts } from '$lib/server/db/schema';
@@ -6,14 +5,12 @@ import { eq } from 'drizzle-orm';
 import { generateSlug } from '$lib/utils/slug';
 
 export function load({ cookies }) {
-  const token = cookies.get('admin_token');
-  if (token !== env.ADMIN_PASSWORD) throw redirect(307, '/admin');
+  if (cookies.get('admin_session') !== 'valid') throw redirect(303, '/admin');
 }
 
 export const actions = {
   default: async ({ request, cookies }) => {
-    const token = cookies.get('admin_token');
-    if (token !== env.ADMIN_PASSWORD) throw redirect(307, '/admin');
+    if (cookies.get('admin_session') !== 'valid') throw redirect(303, '/admin');
 
     const data = await request.formData();
     const title = (data.get('title') as string).trim();
@@ -26,25 +23,12 @@ export const actions = {
     }
 
     let slug = generateSlug(title);
-
-    if (!date) {
-      date = new Date().toISOString().split('T')[0];
-    }
+    if (!date) date = new Date().toISOString().split('T')[0];
 
     const existing = db.select().from(posts).where(eq(posts.slug, slug)).get();
-    if (existing) {
-      slug = slug + '-' + Date.now().toString().slice(-4);
-    }
+    if (existing) slug = slug + '-' + Date.now().toString().slice(-4);
 
-    db.insert(posts).values({
-      slug,
-      title,
-      description,
-      content,
-      date,
-      createdAt: new Date().toISOString()
-    }).run();
-
+    db.insert(posts).values({ slug, title, description, content, date, createdAt: new Date().toISOString() }).run();
     throw redirect(303, '/admin/blog');
-  }
+  },
 };
