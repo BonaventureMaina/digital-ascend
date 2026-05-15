@@ -5,7 +5,14 @@
 
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <div class="max-w-3xl mx-auto px-4 py-16">
-    <h1 class="text-2xl font-bold mb-4 text-white">Subscribers ({subs().length})</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-2xl font-bold text-white">Subscribers ({subs().length})</h1>
+      {#if subs().length > 0}
+        <a href="/api/subscribers.csv" download class="bg-amber-500 hover:bg-amber-400 text-gray-900 font-semibold px-4 py-2 rounded-lg text-sm transition-colors no-underline">
+          Export CSV
+        </a>
+      {/if}
+    </div>
 
     {#if subs().length === 0}
       <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-8 text-center">
