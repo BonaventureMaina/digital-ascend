@@ -1,3 +1,9 @@
+<script lang="ts">
+  import SEO from "$lib/components/SEO.svelte";
+</script>
+
+<SEO title="Stream" description="Stream recorded performances of original one-act plays by Digital Ascend Arts Production." />
+
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <div class="max-w-4xl mx-auto px-4 py-16">
     <p class="text-amber-400 text-sm font-medium uppercase tracking-[0.2em] mb-2">Watch Online</p>
@@ -7,7 +13,6 @@
       <em class="text-amber-400 not-italic">The Last Row</em> — coming soon.
     </p>
 
-    <!-- Video Player Card -->
     <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
       <video controls class="w-full aspect-video">
         <source src="/videos/sample.mp4" type="video/mp4" />
@@ -18,7 +23,6 @@
       </div>
     </div>
 
-    <!-- Future content teaser -->
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white/5 border border-white/10 rounded-xl p-6">
         <h3 class="text-amber-400 font-semibold mb-2">Upcoming</h3>

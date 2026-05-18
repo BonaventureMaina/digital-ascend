@@ -1,6 +1,11 @@
 <script lang="ts">
+  import SEO from "$lib/components/SEO.svelte";
   let { data } = $props();
+  const title = $derived(data.title);
+  const description = $derived(data.description);
 </script>
+
+<SEO title={title} description={description} />
 
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <article class="max-w-3xl mx-auto px-4 py-16">
@@ -19,9 +24,7 @@
     </div>
 
     <div class="mt-12 text-center">
-      <a href="/blog" class="text-amber-400 hover:text-amber-300 text-sm font-medium">
-        ← Back to Blog
-      </a>
+      <a href="/blog" class="text-amber-400 hover:text-amber-300 text-sm font-medium">← Back to Blog</a>
     </div>
   </article>
 </div>

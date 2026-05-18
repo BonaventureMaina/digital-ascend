@@ -1,9 +1,14 @@
+<script lang="ts">
+  import SEO from "$lib/components/SEO.svelte";
+</script>
+
+<SEO title="Shows — The Last Row" description="Our productions. Debut play: The Last Row, a 90-minute one-act play about a theatre critic forced to perform his own script." />
+
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <div class="max-w-4xl mx-auto px-4 py-16">
     <p class="text-amber-400 text-sm font-medium uppercase tracking-[0.2em] mb-2">Our Productions</p>
     <h1 class="text-4xl md:text-5xl font-bold mb-12">Current Season</h1>
 
-    <!-- The Last Row Card -->
     <article class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-2xl">
       <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
         <div>
@@ -29,7 +34,6 @@
         </p>
       </div>
 
-      <!-- Details grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 text-sm">
         <div class="flex gap-2">
           <span class="text-gray-500">Playwright:</span>
@@ -49,7 +53,6 @@
         </div>
       </div>
 
-      <!-- CTAs -->
       <div class="flex flex-wrap gap-4">
         <a href="/tickets" class="bg-amber-500 hover:bg-amber-400 text-gray-900 font-semibold px-6 py-3 rounded-lg transition-colors inline-block">
           Book Tickets
