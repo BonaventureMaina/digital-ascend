@@ -15,7 +15,8 @@
 		"lint": "eslint .",
 		"export-blog": "node scripts/export-blog.js",
 		"prebuild": "npm run export-blog",
-		"generate-pdf": "node scripts/generate-preview-pdf.js"
+		"generate-pdf": "node scripts/generate-preview-pdf.js",
+		"backup": "bash scripts/backup-db.sh"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
