@@ -1,6 +1,4 @@
 <script lang="ts">
-  import SEO from "$lib/components/SEO.svelte";
-
   let { form } = $props();
   const errors = () => form?.errors ?? {};
   const values = () => form?.values ?? {};
@@ -8,7 +6,16 @@
   const success = () => form?.success ?? false;
 </script>
 
-<SEO title="Tickets" description="Book tickets for upcoming performances by Digital Ascend Arts Production. Debut play: The Last Row." />
+<svelte:head>
+  <title>Tickets — Digital Ascend Arts Production</title>
+  <meta name="description" content="Book tickets for upcoming performances by Digital Ascend Arts Production. Debut play: The Last Row." />
+  <meta property="og:title" content="Tickets — Digital Ascend Arts Production" />
+  <meta property="og:description" content="Book tickets for upcoming performances by Digital Ascend Arts Production. Debut play: The Last Row." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tickets — Digital Ascend Arts Production" />
+  <meta name="twitter:description" content="Book tickets for upcoming performances by Digital Ascend Arts Production. Debut play: The Last Row." />
+</svelte:head>
 
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <div class="max-w-xl mx-auto px-4 py-16">

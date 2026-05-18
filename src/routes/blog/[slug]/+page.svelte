@@ -1,11 +1,19 @@
 <script lang="ts">
-  import SEO from "$lib/components/SEO.svelte";
   let { data } = $props();
   const title = $derived(data.title);
   const description = $derived(data.description);
 </script>
 
-<SEO title={title} description={description} />
+<svelte:head>
+  <title>{title} — Digital Ascend Arts Production</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content="{title} — Digital Ascend Arts Production" />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{title} — Digital Ascend Arts Production" />
+  <meta name="twitter:description" content={description} />
+</svelte:head>
 
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <article class="max-w-3xl mx-auto px-4 py-16">

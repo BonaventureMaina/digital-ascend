@@ -1,5 +1,4 @@
 <script lang="ts">
-  import SEO from "$lib/components/SEO.svelte";
   let submitted = $state(false);
   let error = $state('');
 
@@ -19,10 +18,19 @@
   }
 </script>
 
-<SEO description="Digital Ascend Arts Production: original one-act plays for the stage and the screen. Debut production: The Last Row — coming soon." />
+<svelte:head>
+  <title>Digital Ascend Arts Production — Original Plays</title>
+  <meta name="description" content="Original one-act plays for the stage and the screen. Debut production: The Last Row." />
+  <meta property="og:title" content="Digital Ascend Arts Production — Original Plays" />
+  <meta property="og:description" content="Original one-act plays for the stage and the screen. Debut production: The Last Row." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://digital-ascend.pages.dev" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Digital Ascend Arts Production — Original Plays" />
+  <meta name="twitter:description" content="Original one-act plays for the stage and the screen. Debut production: The Last Row." />
+</svelte:head>
 
 <div class="min-h-[90vh] flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
-  <!-- rest of your homepage unchanged -->
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-gradient-to-b from-amber-400/20 to-transparent rounded-full blur-3xl pointer-events-none"></div>
   <div class="relative z-10 max-w-3xl mx-auto text-center px-4 py-16">
     <p class="text-amber-400 text-sm font-medium uppercase tracking-[0.2em] mb-4">A New Theatre Company</p>

@@ -1,10 +1,18 @@
 <script lang="ts">
-  import SEO from "$lib/components/SEO.svelte";
   let { data } = $props();
   const posts = () => data.posts;
 </script>
 
-<SEO title="Blog — Production Notes" description="Behind the scenes, script excerpts, and production notes from Digital Ascend Arts Production." />
+<svelte:head>
+  <title>Blog — Production Notes — Digital Ascend Arts Production</title>
+  <meta name="description" content="Behind the scenes, script excerpts, and production notes from Digital Ascend Arts Production." />
+  <meta property="og:title" content="Blog — Production Notes — Digital Ascend Arts Production" />
+  <meta property="og:description" content="Behind the scenes, script excerpts, and production notes from Digital Ascend Arts Production." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog — Production Notes — Digital Ascend Arts Production" />
+  <meta name="twitter:description" content="Behind the scenes, script excerpts, and production notes from Digital Ascend Arts Production." />
+</svelte:head>
 
 <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-900 to-indigo-950 text-white">
   <div class="max-w-4xl mx-auto px-4 py-16">
